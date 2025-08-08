@@ -38,7 +38,7 @@ Once loaded, `window.vapiSDK.run()` is initialized with your API key and assista
 
 ## 📸 Preview
 
-![preview](https://vapi.ai/static/vapi-preview.png) <!-- Replace with real preview if needed -->
+![Vapi Tester UI](DemoOutputImage.png)
 
 ## 📄 License
 
