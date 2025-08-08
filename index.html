@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vapi Tester</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="note">
+  <strong>Note:</strong> This is a front-end Vapi tester. It uses the Vapi Web SDK via CDN (no backend needed). Just plug in your 
+  <strong><em>public API key</em></strong> and 
+  <strong><em>assistant ID</em></strong> from the Vapi dashboard.
+</div>
+
+
+    <div>
+      <button id="startBtn">🎙️ Start Call</button>
+      <button id="stopBtn" disabled>🛑 Stop Call</button>
+    </div>
+
+    <div id="progressBar"></div>
+
+    <script>
+      const assistant = "07e6c11f-186c-4833-a6b1-acf97a9e8e82"; // Your assistant ID
+      const apiKey = "0d7bd4a6-caa7-4fd6-b597-047b3a93d110"; // Your public API key
+
+      (function (d, t) {
+        const g = document.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+        g.src =
+          "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+        g.defer = true;
+        g.async = true;
+        s.parentNode.insertBefore(g, s);
+
+        g.onload = function () {
+          window.vapiSDK.run({
+            apiKey: apiKey,
+            assistant: assistant,
+            config: {
+              position: "bottom-left",
+              theme: "dark",
+              showCloseButton: true,
+            },
+          });
+        };
+      })(document, "script");
+
+      const startBtn = document.getElementById("startBtn");
+      const stopBtn = document.getElementById("stopBtn");
+      const progressBar = document.getElementById("progressBar");
+
+      function triggerVapiClick() {
+        const vapiBtn = document.querySelector(".vapi-btn");
+        if (vapiBtn) {
+          vapiBtn.click();
+        } else {
+          console.warn("Vapi button not found.");
+        }
+      }
+
+      function showProgressBar() {
+        progressBar.style.width = "0%";
+        setTimeout(() => {
+          progressBar.style.width = "100%";
+        }, 50);
+        setTimeout(() => {
+          progressBar.style.width = "0%";
+        }, 700);
+      }
+
+      startBtn.addEventListener("click", () => {
+        triggerVapiClick();
+        showProgressBar();
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+      });
+
+      stopBtn.addEventListener("click", () => {
+        triggerVapiClick();
+        showProgressBar();
+        stopBtn.disabled = true;
+        startBtn.disabled = false;
+      });
+    </script>
+  </body>
+</html>
